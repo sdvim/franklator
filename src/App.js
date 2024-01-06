@@ -36,24 +36,24 @@ const morse = {
 
 const morseReversed = Object.fromEntries(Object.entries(morse).map(([k, v]) => [v, k]));
 
-function isFrank(input) {
-  return /^[frank FRANK]+$/.test(input);
+function isSteve(input) {
+  return /^[ste ve]+$/.test(input);
 }
 
-function toFrank(english) {
+function toSteve(english) {
   return english
     .split('')
     .map((c) => morse[c.toLowerCase()] || '')
     .join(' ')
-    .replace(/\./g, 'frank')
-    .replace(/-/g, 'FRANK')
+    .replace(/\./g, 'ste')
+    .replace(/-/g, 've')
     .replace(/ +/g, ' ');
 }
 
-function toEnglish(frank) {
-  return frank
-    .replace(/frank/g, '.')
-    .replace(/FRANK/g, '-')
+function toEnglish(steve) {
+  return steve
+    .replace(/ste/g, '.')
+    .replace(/ve/g, '-')
     .split(' ')
     .map((w) => morseReversed[w] || '')
     .join('')
@@ -62,19 +62,19 @@ function toEnglish(frank) {
 
 function App() {
   const [englishText, setEnglishText] = useState("");
-  const [frankText, setFrankText] = useState("");
+  const [steveText, setSteveText] = useState("");
 
   const handleEnglishChange = e => {
     const value = e.target.value.toLowerCase();
     if (value && !morse[value.substr(-1)]) return false;
     setEnglishText(value);
-    setFrankText(toFrank(value));
+    setSteveText(toSteve(value));
   };
 
-  const handleFrankChange = e => {
+  const handleSteveChange = e => {
     const value = e.target.value.replace(/(\r\n|\n|\r)/gm, "");
-    if (value && !isFrank(value)) return false;
-    setFrankText(value);
+    if (value && !isSteve(value)) return false;
+    setSteveText(value);
     setEnglishText(toEnglish(value));
   };
 
@@ -83,12 +83,12 @@ function App() {
       <textarea
         onChange={handleEnglishChange}
         value={englishText}
-        placeholder="???"
+        placeholder="english"
       />
       <textarea
-        onChange={handleFrankChange}
-        value={frankText}
-        placeholder="frank"
+        onChange={handleSteveChange}
+        value={steveText}
+        placeholder="steve"
       />
     </>
   );
