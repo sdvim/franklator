@@ -78,6 +78,8 @@ function App() {
     setEnglishText(toEnglish(value));
   };
 
+  const charCount = `${steveText.length} / 320`;
+
   return (
     <>
       <textarea
@@ -89,6 +91,10 @@ function App() {
         onChange={handleSteveChange}
         value={steveText}
         placeholder="steve"
+      />
+      <input
+        disabled
+        value={charCount}
       />
     </>
   );
