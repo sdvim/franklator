@@ -36,24 +36,24 @@ const morse = {
 
 const morseReversed = Object.fromEntries(Object.entries(morse).map(([k, v]) => [v, k]));
 
-function isSteve(input) {
-  return /^[ste ve]+$/.test(input);
+function isEeeee(input) {
+  return /^[E e]+$/.test(input);
 }
 
-function toSteve(english) {
+function toEeeee(english) {
   return english
     .split('')
     .map((c) => morse[c.toLowerCase()] || '')
     .join(' ')
-    .replace(/\./g, 'ste')
-    .replace(/-/g, 've')
+    .replace(/\./g, 'E')
+    .replace(/-/g, 'e')
     .replace(/ +/g, ' ');
 }
 
-function toEnglish(steve) {
-  return steve
-    .replace(/ste/g, '.')
-    .replace(/ve/g, '-')
+function toEnglish(eeeee) {
+  return eeeee
+    .replace(/E/g, '.')
+    .replace(/e/g, '-')
     .split(' ')
     .map((w) => morseReversed[w] || '')
     .join('')
@@ -62,23 +62,23 @@ function toEnglish(steve) {
 
 function App() {
   const [englishText, setEnglishText] = useState("");
-  const [steveText, setSteveText] = useState("");
+  const [eeeeeText, setEeeeeText] = useState("");
 
   const handleEnglishChange = e => {
     const value = e.target.value.toLowerCase();
     if (value && !morse[value.substr(-1)]) return false;
     setEnglishText(value);
-    setSteveText(toSteve(value));
+    setEeeeeText(toEeeee(value));
   };
 
-  const handleSteveChange = e => {
+  const handleEeeeeChange = e => {
     const value = e.target.value.replace(/(\r\n|\n|\r)/gm, "");
-    if (value && !isSteve(value)) return false;
-    setSteveText(value);
+    if (value && !isEeeee(value)) return false;
+    setEeeeeText(value);
     setEnglishText(toEnglish(value));
   };
 
-  const charCount = `${steveText.length} / 320`;
+  const charCount = `${eeeeeText.length} / 320`;
 
   return (
     <>
@@ -88,9 +88,9 @@ function App() {
         placeholder="english"
       />
       <textarea
-        onChange={handleSteveChange}
-        value={steveText}
-        placeholder="steve"
+        onChange={handleEeeeeChange}
+        value={eeeeeText}
+        placeholder="eeeee"
       />
       <input
         disabled
